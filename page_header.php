@@ -96,7 +96,6 @@ else
     }
    
 </script>
-
     <div class='container'>
         <div style='display:block'>
             <div style='top:18px;left:230px;position:fixed'>

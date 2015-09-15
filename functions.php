@@ -237,10 +237,10 @@ function selectMakerValue($label,$id,$array,$function,$value,$val='' )
      $text.="</td></tr>";
      return $text;
 }
-function sendText($text,$phone_number)
+function sendText($text,$phone_number,$smsc_id)
 {
 	$text=urlencode($text);
-	$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number." " );
+	$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number."&smsc_id="+$smsc_id );
 }
 function selectMakerEach($label,$id,$array,$function , $default='')
 {

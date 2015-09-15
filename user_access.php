@@ -108,7 +108,7 @@ if(!empty($_REQUEST['submit_btn']))
     
 }
 
-$select="select * from menu_file order by menu_head,menu_type,  menu_order";
+$select="select * from menu_file where mas_status=1 and menu_head!=16 order by menu_head,menu_type,  menu_order";
 $result = $conn->query($select);
 echo "<h2>User Access </h2>";
 echo "<table id='user_table'>";

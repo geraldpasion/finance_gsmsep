@@ -212,11 +212,12 @@
             $phone_number=$row['phone_number'];
             $requestor_name=$row['name'];
            
-           $select="select concat(first_name,' ',last_name) as name from master_address_file where
+           $select="select concat(first_name,' ',last_name) as name,smsc_id from master_address_file where
            account_type='Secretary' and mas_status=1 and account_id='$secretary' limit 1";
             $result = $conn->query($select);
             $row=$result->fetch_assoc();
             $secretary_name=$row['name'];
+            $smsc_id=$row['smsc_id'];
             
             $select="select concat(first_name,' ',last_name) as name from master_address_file where
            account_type='Engineer' and mas_status=1 and account_id='$engineer' limit 1";
@@ -272,11 +273,11 @@ Item:".$item;
                {
                     echo "<script>alert('Successfull Transaction');</script>";
            
-                $select="select phone_number from master_address_file where account_type='Account Executive' and mas_status=1 and account_id='$requestor' limit 1";
+                $select="select phone_number,smsc_id from master_address_file where account_type='Account Executive' and mas_status=1 and account_id='$requestor' limit 1";
                 $result = $conn->query($select);
                 $row=$result->fetch_assoc();
                 
-                 send_text($text,$row['phone_number']); 
+                 send_text($text,$row['phone_number'],$smsc_id); 
                 //$text=urlencode($text);
                 //$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=$text&to=".$row['phone_number']);
                 	$trans_no="";
