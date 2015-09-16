@@ -7,7 +7,7 @@ include 'page_header.php';
 function print_me()
 {
 			document.getElementById('form1').target = '_blank'
- 			document.getElementById('form1').action = 'list_payments_fpdf.php'
+ 			document.getElementById('form1').action = 'list_approved_fpdf.php'
             document.form1.submit();
 }
 </script>
@@ -27,7 +27,7 @@ function print_me()
 <form method=post name='form1' id='form1'>
 	<table >
 			<tr>
-			<th>List of Payments</th>
+			<th>List of Approved</th>
 		</tr>
 
 	<?php
@@ -39,23 +39,20 @@ function print_me()
     $supplier_id=getPost('supplier','Choose');
     $secretary_id=getPost('secretary_id','Choose');
     
-    $filter=" where release_date>1 ";
-    
-    if($date_from!='' ||$date_to!='')
+    $filter=" where approved_date>1 ";
+        if($date_from!='' ||$date_to!='')
 {
     
     //  $filter.=" date_created between '".date("Y-m",strtotime($date_from))."' and '".date("Y-m-d",strtotime($date_to))."'";
          
     $filter.=" and ";
      if($date_from!='' && $date_to!='')
-            $filter.=" release_date >= '".date("Y-m-d",strtotime($date_from))." 00:00:00' and release_date <='".date("Y-m-d",strtotime($date_to))." 23:59:59'";
+            $filter.=" approved_date >= '".date("Y-m-d",strtotime($date_from))." 00:00:00' and approved_date <='".date("Y-m-d",strtotime($date_to))." 23:59:59'";
      else if($date_from!='')
-           $filter.=" release_date like '".date("Y-m-d",strtotime($date_from))."%' ";
+           $filter.=" approved_date like '".date("Y-m-d",strtotime($date_from))."%' ";
      else
-           $filter.=" release_date like '".date("Y-m-d",strtotime($date_to))."%' ";
+           $filter.=" approved_date like '".date("Y-m-d",strtotime($date_to))."%' ";
 }
-
-    
     $filter=whereMaker($filter,'requestor',$requestor_id);
     $filter=whereMaker($filter,'company_name',$company_name);
     $filter=whereMaker($filter,'supplier',$supplier_id);
@@ -64,7 +61,7 @@ function print_me()
      $SELECT_po="select * from po_file".$filter;
     
     echo "<tr>
-    		<th style='border:none;text-align:left'>Date Released</th>
+    		<th style='border:none;text-align:left'>Date Approved</th>
         	<th colspan=10 style='text-align:left; border:none'>
      			<table align=left>
      				<tr>

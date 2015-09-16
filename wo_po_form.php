@@ -1,5 +1,6 @@
 <?php
     include 'page_header.php';
+            $trans_num="";
     ?>
     <div id='child'></div>
     <script>
@@ -48,15 +49,44 @@
            document.getElementById('table_items').innerHTML=html+add
            
            
-           for(a=1,b=0;a<item_no;a++)
+           for(aw=1,b=0;aw<item_no;aw++)
             {
-               document.getElementById('item'+a).value=item[a]
-                document.getElementById('unit_price'+a).value= unit_price[a]
-                document.getElementById('description'+a).value=description[a]
-                document.getElementById('quantity'+a).value=quantity[a]
-                computeAmount(a)
+            
+               document.getElementById('item'+aw).value=item[aw]
+                document.getElementById('unit_price'+aw).value= unit_price[aw]
+                document.getElementById('description'+aw).value=description[aw]
+                document.getElementById('quantity'+aw).value=quantity[aw]
+                computeAmount(aw)
             }
            
+        }
+        function computeAmount(a) {
+            quantity2=parseInt(document.getElementById('quantity'+a).value)
+            unit_price2=parseFloat(document.getElementById('unit_price'+a).value)
+            if(unit_price2==undefined)
+            unit_price2="";
+            if(description2==undefined)
+            description2="";
+            if (!isNaN(quantity2) && !isNaN(unit_price2)) {
+                amount=quantity2*unit_price2
+                amount=addCommas(amount)
+                //amount=amount.toFixed(2)
+                document.getElementById('total_amount'+a).value=amount2
+             //   alert(document.getElementById('total_amount'+a).value)
+            }
+            item_no=document.getElementById('item_no').value
+            total_amount=0
+            for(as=1;as<=item_no;as++)
+            {
+                
+                quantity2=parseInt(document.getElementById('quantity'+as).value)
+                unit_price2=parseFloat(document.getElementById('unit_price'+as).value)
+                //alert(quantity+" "+unit_price)
+                if (!isNaN(quantity2) && !isNaN(unit_price2)) {
+                    total_amount+=parseFloat(quantity2*unit_price2)
+                }
+            }
+            document.getElementById('grand_amount').value=addCommas(total_amount)
         }
         function save_this(type ,status)
        {
@@ -132,28 +162,7 @@
             document.getElementById('engineer').innerHTML=data[0]
             document.getElementById('secretary').innerHTML=data[1]
         }
-        function computeAmount(a) {
-            quantity=parseInt(document.getElementById('quantity'+a).value)
-            unit_price=parseFloat(document.getElementById('unit_price'+a).value)
-            if (!isNaN(quantity) && !isNaN(unit_price)) {
-                amount=quantity*unit_price
-                document.getElementById('total_amount'+a).value=addCommas(amount).toFixed(2)    
-                alert(document.getElementById('total_amount'+a).value)
-            }
-            item_no=document.getElementById('item_no').value
-            total_amount=0
-            for(a=1;a<=item_no;a++)
-            {
-                
-                quantity=parseInt(document.getElementById('quantity'+a).value)
-                unit_price=parseFloat(document.getElementById('unit_price'+a).value)
-                //alert(quantity+" "+unit_price)
-                if (!isNaN(quantity) && !isNaN(unit_price)) {
-                    total_amount+=parseFloat(quantity*unit_price)
-                }
-            }
-            document.getElementById('grand_amount').value=addCommas(total_amount)
-        }
+        
     </script>
       <form name='form1' id='form1' method=post>
     <?php
@@ -268,7 +277,7 @@ Item:".$item;
             $type1="type=With Po";
             if($type=="withoutpo")
             $type1="type=Without Po";
-               
+                $trans_num=$trans_no;	
                if($status!='Save')
                {
                     echo "<script>alert('Successfull Transaction');</script>";
@@ -385,13 +394,16 @@ Total Amount:".$total_amount;
             $type1="type=With Po";
             if($type=="withoutpo")
             $type1="type=Without Po";
+            
+            $trans_num=$trans_no;
+            
                if($status!='Save' && $status!='pending')
                {
                   // $text=urlencode($text);
                    send_text($text,$phone_number);
                    
                 //    echo $response;
-
+ECHO "<br>Trans_num".$trans_num." ".$trans_no;
 		$trans_no="";
 $trans_num="";
 $number_code="";	
@@ -425,9 +437,8 @@ $number_code="";
         $page="";
         $supplier="";
         $payment_type="";
-        $trans_num="";
+
         $item_description="";
-    
     if($trans_num!='')
     {
         echo "<input type='hidden' name='trans_num' id='trans_num' value='$trans_num'>";     
@@ -542,7 +553,7 @@ echo "<tr><th style='text-align:left'>Letter Code:</th><th style='text-align:lef
                         <?php
                         $a=0;
                         $total_amount=0;
-                        if(!empty($_REQUEST['trans_num']))
+                        if($trans_num!='')
                         {
                             $select="select * from po_item_file where trans_no='$trans_num' ";
                             $result = $conn->query($select);

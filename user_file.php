@@ -1,6 +1,7 @@
 <?php
 include 'page_header.php';
 ?>
+<form name='form1' id='form1' method='post'>
 <script>
     function get_type(type) {
         if (type=='Secretary' ) 
@@ -19,28 +20,35 @@ include 'page_header.php';
             
     }
 </script>
-<?php
 
+<?php
+$username="";
+        $user_type="";
+        $department="";
+        $finance_head="";
+        $phone_number="";
+        $first_name="";
+        $last_name="";
     if(!empty($_POST['submit_btn']))
     {
-        $username=$_POST['user_name'];
-        $user_type=$_POST['user_type'];
-        $department=$_POST['department'];
-        $finance_head=$_POST['finance_head'];
-        $phone_number=$_POST['phone_number'];
-        $first_name=$_POST['first_name'];
-        $last_name=$_POST['last_name'];
+        $username=getPost('user_name','Choose');
+        $user_type=getPost('user_type','Choose');
+        $department=getPost('department','Choose');
+        $finance_head=getPost('finance_head','Choose');
+        $phone_number=getPost('phone_number','Choose');
+        $first_name=getPost('first_name','Choose');
+        $last_name=getPost('last_name','Choose');
         $account_executive_id=" ";
-        if($user_type=='Secretary' || $user_type=='Finance_head')
+        if($user_type=='Secretary' || $user_type=='Finance Head')
         {
             $account_executive_id=$_POST['finance_head'];
-            if( $user_type=='Finance_head')
-            $user_type='account_executive';
+            if( $user_type=='Finance Head')
+            $user_type='account executive';
             else
             {
                 $select="select department from master_address_file as a inner join master_department_file  as k
                 on a.department_id=k.department_id
-                where account_id='".$account_executive_id."' and account_type='account_executive' limit 1";
+                where account_id='".$account_executive_id."' and account_type='account executive' limit 1";
                 $result = $conn->query($select);
                 $row=$result->fetch_assoc();
                 $department=$row['department'];
@@ -56,12 +64,23 @@ include 'page_header.php';
         }
         if($department=='Choose')
         $department="";
-        $result=insertMaker('user_file',array('user_name','password','first_name','last_name','user_type','department','finance_head','phone_number'),array($username,'password123',$first_name,$last_name,$user_type,$department,$finance_head,$phone_number));
-        echo "<script>alert('Successfully added New User')</script>";
+        $select="select user_id from user_file order by user_id desc limit 1";
+        $result = $conn->query($select);
+        $row=$result->fetch_assoc();
+        $user_id=(int)$row['user_id']+1 ;      
+        
+        $result=insertMaker('user_file',array('user_id','user_name','password','first_name','last_name','user_type','department','finance_head','phone_number'),array($user_id,$username,'password123',$first_name,$last_name,$user_type,$department,$finance_head,$phone_number));
+        
+        
+        echo "<script>alert('Successfully added New User');";
+        
+         echo "document.getElementById('form1').action='user_list.php';";
+                 
+         echo "document.form1.submit();</script>";
     }
     
 ?>
-<form name='form1' id='form1' method=post>
+
 <table style='width:300px' class='form_css'>
     <tr>
         <th style='text-align:left'><h2>User File</h2></th>
@@ -104,12 +123,14 @@ include 'page_header.php';
         $phone_number=$row['phone_number'];
         $first_name=$row['first_name'];
         $last_name=$row['last_name'];
+        if( $user_type=='account executive')
+            $user_type='Finance Head';
     }
     echo textMaker('Username','user_name',$username);
     echo textMaker('First Name','first_name',$first_name);
     echo textMaker('Last Name','last_name',$last_name);
     echo selectMaker('User Type','user_type',array('Finance Head','Secretary','QA','Admin','Cash Release'),'get_type(this.value)',$user_type);
-    
+    //$label,$id,$array,$function,$value,$val=''
     echo "<tr><td colspan=2><div style='display:none' id='phone_id'>";
     echo "<table>";
     

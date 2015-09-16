@@ -197,31 +197,29 @@ $pdf->SetFont('Times','',10);
     
     
     
-        $filter=" where release_date>1 ";
-    
-    if($date_from!='' ||$date_to!='')
+      $filter=" where approved_date>1 ";
+        if($date_from!='' ||$date_to!='')
 {
     
     //  $filter.=" date_created between '".date("Y-m",strtotime($date_from))."' and '".date("Y-m-d",strtotime($date_to))."'";
          
     $filter.=" and ";
      if($date_from!='' && $date_to!='')
-            $filter.=" release_date >= '".date("Y-m-d",strtotime($date_from))." 00:00:00' and release_date <='".date("Y-m-d",strtotime($date_to))." 23:59:59'";
+            $filter.=" approved_date >= '".date("Y-m-d",strtotime($date_from))." 00:00:00' and approved_date <='".date("Y-m-d",strtotime($date_to))." 23:59:59'";
      else if($date_from!='')
-           $filter.=" release_date like '".date("Y-m-d",strtotime($date_from))."%' ";
+           $filter.=" approved_date like '".date("Y-m-d",strtotime($date_from))."%' ";
      else
-           $filter.=" release_date like '".date("Y-m-d",strtotime($date_to))."%' ";
+           $filter.=" approved_date like '".date("Y-m-d",strtotime($date_to))."%' ";
 }
-
     $filter=whereMaker($filter,'requestor',$requestor_id);
     $filter=whereMaker($filter,'company_name',$company_name);
     $filter=whereMaker($filter,'supplier',$supplier_id);
     $filter=whereMaker($filter,'secretary',$secretary_id);
     
- 
-
+   
     
      $SELECT_po="select * from po_file".$filter;
+     //echo $SELECT_po;
      $head=array("Date","Letter","Mode of Payment","Company Name",
      "Engineer","Secretary","PO#","JO#","Item Description","Page#"
      ,"Pay to","Total amount","Particulars");

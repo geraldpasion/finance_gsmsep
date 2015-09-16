@@ -124,6 +124,7 @@ function listMaker($table_name,$order,$select_list,$title)
     <form name='form1' id='form1' method=post>
     <table class='table_data'>
     <?php
+   // echo $select; 
     $result = $conn->query($select);
     echo "<tr>";
         for($a=0;$a<count($select_list);$a++)

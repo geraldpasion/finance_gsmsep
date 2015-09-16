@@ -61,15 +61,21 @@ include 'functions.php';
 $str_request=str_replace("/finance_gsm","",$_SERVER["REQUEST_URI"]);
 $str_request=str_replace("/","",$str_request);
 $str_request=str_replace("/","",$str_request);
-if ("login.php"== $str_request && empty($_SESSION['uname']))
+$file=$str_request;
+$str_request2=explode(".php",$str_request);
+$str_request=$str_request2[0];
+$str_request2=explode("/",$str_request);
+$str_request=$str_request2[count($str_request2)-1];
+if ("login"== $str_request && empty($_SESSION['uname']))
 echo "";
 else if("login.php"!= $str_request && empty($_SESSION['uname']))
  echo "<script>alert(' Session Expired Please Log In');window.location.assign('login.php')</script>";
 else
 {
     $select="select a.type from user_access_type_file  as a inner join menu_file as k
-    on a.menu_id=k.menu_id where menu_php='".addslashes($str_request)."'  and user_type='".$_SESSION['user_type']."' ";
+    on a.menu_id=k.menu_id where menu_php like'".addslashes($file)."%'  and user_type='".$_SESSION['user_type']."' ";
     $result = $conn->query($select);
+   // echo $select;
     $access=array();
     while($row=$result->fetch_assoc())
     {
@@ -77,6 +83,7 @@ else
     }
     
 }
+print_r($access);
 ?>
 <script >
     var xmlhttp;

@@ -4,7 +4,9 @@ include 'page_header.php';
 <script>
     function deactivate(trans_num)
     {
-         document.getElementById('form1').action = 'department_list.php?status=deactivate&user_id='+trans_num
+    	document.getElementById('status').value="deactivate"
+    	document.getElementById('user_id').value=trans_num
+         document.getElementById('form1').action = 'department_list.php'
             document.form1.submit();
     }
     
@@ -15,7 +17,9 @@ include 'page_header.php';
     }
     function check_list(trans_num)
     {
-         document.getElementById('form1').action = 'department_list.php?status=activate&user_id='+trans_num
+    	document.getElementById('status').value="activate"
+    	document.getElementById('user_id').value=trans_num
+         document.getElementById('form1').action = 'department_list.php'
             document.form1.submit();
     }
 </script>
@@ -29,7 +33,8 @@ if(!empty($_REQUEST['status']) )
     $update="update master_department_file set mas_status=$status where department_id='$user_id' limit 1";
     $conn->query($update);
 }
-
+echo "<input type='hidden' name='status' id='status' >";
+echo "<input type='hidden' name='user_id' id='user_id' >";
 echo "<table>";
     echo "<tr>";
         echo "<td style='text-align:right'><a href='master_department.php'>Add New</a>";
