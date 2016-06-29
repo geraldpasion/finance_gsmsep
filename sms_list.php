@@ -39,6 +39,29 @@ if(!empty($_REQUEST['status']))
 }
 
 //function listMaker($table_name,$order,$select_list,$title)
+$mas_status=getRequest('mas_status','');
+$user_active="class='active selected_tab '";
+$user_inactive="class='tabby'";
+$user_all="class='tabby'";
+$where="";
+if($mas_status=='')
+	$mas_status=1;
+else if($mas_status==-1)
+{
+	$user_active="class='tabby'";
+	$user_all="class='active selected_tab '";
+}
+else if($mas_status==2)
+{
+	$user_active="class='tabby'";
+	$user_inactive="class='active selected_tab '";
+	$mas_status=0;	
+	$where=" where mas_status=0 ";
+}
+
+$where=whereMaker($where,'mas_status',$mas_status,-1);
+$data=explode("?",$page_name);
+$page_name=$data[0];
 
 $table_name='';
 $order='date_sent desc';
@@ -85,7 +108,7 @@ $title='SMS List';
          else
                $where.=" date_sent like '".date("Y-m-d",strtotime($date_to))."%' ";
     }
-    $select="select ".toStringList($select_list).$sel." from sms_files as a left join po_file as k on a.trans_no=k.trans_no  $where ";
+    $select="select ".toStringList($select_list).$sel." from sms_files as a left join po_file as k on a.trans_no=k.trans_no  $where order by date_sent,sms_id,received ";
     //    echo $select;
     ?>
     <h2><?php echo $title;?></h2>
@@ -147,13 +170,13 @@ $title='SMS List';
                 $table.= "<td style='text-align:center'>".$row[$select_list[$a]]."</td>";
             }
             $table.= "<td>";
-          if(!empty($access['Hide']))
-          {
+          //if(!empty($access['Hide']))
+          //{
                 if($row['hide']!=0)
                 $table.= "<td><img  src='assets/check.png' name='image' width='20' height='20' onclick='check_list(".$row[$this_id].")'></td>";
                 else 
                 $table.= "<td><img  src='assets/cross.jpg' name='image' width='21' height='20' onclick='deactivate(".$row[$this_id].")'></td>";
-          }
+          //}
         $table.= "</tr>";
     }
     echo selectMakerEach('Received','phone_number',$received_name,'' ,$phone_number);
@@ -169,6 +192,8 @@ $title='SMS List';
      </td></table></td></tr>";
     echo "<tr><td colspan=2 style='text-align:center   '><input type='submit' value='Submit'></td><td colspan=10></td></tr>";
     echo $table;
+    if($table=='')
+    echo "<H2>No Data Found</h2>";
     ?>
     <tr>
      <td colspan=20 style='text-align:center'>
