@@ -305,8 +305,6 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			
 		echo $response;
 			
-			
-			
 		}
 		catch(Exception $e)
 		{
