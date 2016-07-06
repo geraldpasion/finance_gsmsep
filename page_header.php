@@ -122,14 +122,22 @@ include 'string.php';
 error_reporting(0);
 include 'connect.php';
 
-$select="select sms_slot_id from user_file";
+$select="SELECT NULL
+            FROM INFORMATION_SCHEMA.COLUMNS
+           WHERE table_name = 'user_file'
+             AND table_schema = 'finance_gsm_files'
+             AND column_name = 'sms_slot_id'";
 $result = $conn->query($select);
-    if ($result->num_rows < 0)
+if ($result->num_rows <=0)
     {
 $select="ALTER TABLE `user_file` ADD `sms_slot_id` VARCHAR(15) NOT NULL ;";
+//echo $select;
 $result = $conn->query($select);
+//echo $select;
     	
     }
+//else
+
 
 
 include 'functions.php';
