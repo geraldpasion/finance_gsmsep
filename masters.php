@@ -125,17 +125,26 @@ if(!empty($_POST['update_btn']))
     $first_name=$_POST['first_name'];
     $last_name=$_POST['last_name'];
     $department=$_POST['department'];
+    //echo "<br>department".$department;
     $account_executive=$_POST['account_executive'];
     $phone_number=$_POST['phone_number'];
     
-    $sms_id=$_POST['sms_id'];
+   // $sms_id=$_POST['sms_id'];
+    $sms_slot=$_POST['sms_slot'];
+    
+     if($sms_slot!='' &&$sms_slot!='N/A')
+    {
+    	$update="update sms_slot_file set account_id='$id' where slot_id='$sms_slot' and account_id=0";
+    	$conn->query($update);
+    }
+    
     $user_name=$_POST['user_name'];
     
    $select="select user_name,sms_slot from master_address_file where account_id='$account_id' limit 1";
      $result = $conn->query($select);
      $row=$result->fetch_assoc();
     $user_id=$row['user_name'];
-    $sms_slot=$row['sms_slot'];
+    //$sms_slot=$row['sms_slot'];
     
     if($user_id==0 &&$user_name!='')
     {
@@ -163,11 +172,11 @@ if(!empty($_POST['update_btn']))
  //   $result= updateMaker('po_item_file',array('item','description','quantity','unit_price'),array($item,$description,$quantity,$unit_price), "where id='$id' and trans_no='$trans_num' ");
                
     $result=updateMaker('master_address_file',$add_array,$value_array,"where account_id='$account_id'");
-    echo "<script>alert('Successfully Update $type');
+    /*echo "<script>alert('Successfully Update $type');
     document.getElementById('form1').action = 'list_view.php'
             document.form1.submit();
                                              
-    </script>";
+    </script>";*/
 }
 $type="";
     $first_name="";
@@ -280,7 +289,7 @@ if(!empty($_POST['status']))
            document.form1.submit();
     
     </script>";
-
+	
 }
 ?>
 <table style='width:500px' class='form_css'>
@@ -361,7 +370,7 @@ if(!empty($_POST['status']))
          $others_select=str_replace("<td>","<td class='others_div' style='display:none'>",$others_select);
 		
 		 $others_select=str_replace("<th style='text-align:left'>","<th class='others_div' style='display:none;text-align:left'>",$others_select);
-		echo $others_select; 
+		echo $others_select;
 		echo selectMakerArray('SMS Slot','sms_slot',$sms_slot_array,$sms_id,"N/A");
 		$checked="";
 		$div="display:none;";
