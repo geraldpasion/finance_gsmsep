@@ -4,7 +4,7 @@
   <script type="text/javascript" src="jquery-1.10.2.js"></script>
   <script type="text/javascript" src="jquery-ui.js"></script>
 <body>
-    <style>page
+    <style>
         .navbar-brand {
     float: left;
     padding: 15px 15px;
@@ -120,18 +120,26 @@ include 'string.php';
 error_reporting(0);
 include 'connect.php';
 include 'functions.php';
+$data=explode("/",$_SERVER["REQUEST_URI"]);
+$str_request=$data[count($data)-1];
+$str_request=str_replace(".php","",$str_request);
+/*
 $str_request=str_replace("/finance_gsm","",$_SERVER["REQUEST_URI"]);
 $str_request=str_replace("/","",$str_request);
 $str_request=str_replace("/","",$str_request);
 $file=$str_request;
 $str_request2=explode(".php",$str_request);
 $str_request=$str_request2[0];
-$str_request2=explode("/",$str_request);
-$str_request=$str_request2[count($str_request2)-1];
+$str_request2=explode("/",$str_request);/$str_request=$str_request2[count($str_request2)-1];
+*/
+
 if ("login"== $str_request && empty($_SESSION['uname']))
 echo "";
 else if("login.php"!= $str_request && empty($_SESSION['uname']))
- echo "<script>alert(' Session Expired Please Log In');window.location.assign('login.php')</script>";
+{
+ session_destroy();
+ echo "<script>alert( Session Expired Please Log In');window.location.assign('login.php')</script>";
+}
 else
 {
 if($_SESSION['user_type']=='account executive')
@@ -185,13 +193,15 @@ $file="view_data_combine.php";
          xmlhttp=new XMLHttpRequest();
        else
          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    xmlhttp.onreadystatechange=function()
+        xmlhttp.onreadystatechange=function()
     {
         if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
             cfunc(xmlhttp.responseText);
+        }
     }
-    xmlhttp.open("GET",url,true);
-    xmlhttp.send();
+        xmlhttp.open("GET",url,true);
+          xmlhttp.send();
     }
    
 </script>
@@ -230,7 +240,6 @@ $file="view_data_combine.php";
  <?php
 	if(!empty($_SESSION['uname']))
                         include 'menu2.php';
-				
                 ?>
 				</td>
 
