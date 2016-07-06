@@ -4,7 +4,7 @@
   <script type="text/javascript" src="jquery-1.10.2.js"></script>
   <script type="text/javascript" src="jquery-ui.js"></script>
 <body>
-    <style>
+    <style>page
         .navbar-brand {
     float: left;
     padding: 15px 15px;
@@ -139,6 +139,9 @@ $_SESSION['user_type']="Finance Head";
 $file2=explode("?",$file);
 $file3=$file2[0];
 $page_name=$file;
+$data2=explode("/",$page_name);
+$c=count($data2);
+$page_name=$data2[$c-1];
 if($file3=="view_datas.php")
 $file="view_data_combine.php";
    /* $select="select a.type from user_access_type_file  as a inner join menu_file as k
