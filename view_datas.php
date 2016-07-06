@@ -591,7 +591,16 @@ Message:".$_REQUEST['chat_box'];
         
         echo "</table>";
         echo "</td>";
-    
+    	
+    	
+    	$select="select * from sms_files order by id desc limit 5 ";
+        $result = $conn->query($select);
+        while($row=$result->fetch_assoc())
+        {
+        	echo "<br>".$row['received']."=>".$row['sent_by']."=>".$row['sms_id']."=>".$row['date_sent']."=>".$row['sms'];
+        }
+    	
+    	
         $select="select * from sms_files where hide!=1 and trans_no!='$trans_num' and (received='$phone_number_user' ) group by sms_id,received,date_sent,sms order by date_sent desc ";
         $result = $conn->query($select);
         if($result->num_rows > 0)
