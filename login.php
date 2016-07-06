@@ -4,7 +4,7 @@ if(!empty($_POST['sub_btn']))
 {
     $username=$_POST['username'];
     $password=$_POST['password'];
-    $select="select user_type from user_file where user_name='".addslashes($username)."' and password='".addslashes($password)."' and mas_status=1 limit 1";
+    $select="select user_type,user_id from user_file where user_name='".addslashes($username)."' and password='".addslashes($password)."' and mas_status=1 limit 1";
     $result = $conn->query($select);
 //echo $select;
     if ($result->num_rows > 0) 
@@ -12,6 +12,7 @@ if(!empty($_POST['sub_btn']))
         $row=$result->fetch_assoc();
         $_SESSION['uname']=$username;
         $_SESSION['user_type']=$row['user_type'];
+         $_SESSION['user_id']=$row['user_id'];
         
         $filter=" WHERE user_type='".$_SESSION['user_type']."' ";
         if($_SESSION['user_type']=='admin')
