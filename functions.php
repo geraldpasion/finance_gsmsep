@@ -292,6 +292,7 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 		$file="http://".$ip_address."/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number."&smsc_id=".$smsc_id;
 		echo $file;
 		try {
+		ini_set("allow_url_fopen", 1);
 			//$response = file_get_contents($file );
 			$ip_address="127.0.0.1:13013";
 			$file="http://".$ip_address."/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number."&smsc_id=smsc0";
@@ -320,8 +321,13 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			
 			
 			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?username=sms-app&user=sms-app&password=app125&pass=app125&charset=UCS-2&coding=2&text=Hello&to=09065685555&smsc_id=smsc0");
-		
 			
+			$response = file_get_contents("http://127.0.0.1/finance_gsm/index.php");
+		
+			if( ini_get('allow_url_fopen') ) {
+   echo "Enable";
+} 
+echo "NOT ALLOWED";
 			
 			echo $response;
 			
