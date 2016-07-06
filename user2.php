@@ -34,7 +34,7 @@ while($row=$result->fetch_assoc())
 	$pos[]=array($row['account_type'],$row['id']);
 	$a_type[$row['id']]=$row['account_type'];
 }
-if(!empty($_POST['access']))
+if(!empty($_POST['access'])&& count($_POST['access'])>0)
 {
 	$access=$_POST['access'];
 	//print_r($access);
