@@ -311,7 +311,7 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			echo "<script>alert('Failed to send message')</script>";
 		}
   	   catch (ErrorException $e) {
-  	   echo "Kai";
+  	  // echo "Kai";
   	 }
 }  
    // $insert="insert into received_file(phone_number,message,received_date) values($phone_number,'".addslashes($text)."',now())";
