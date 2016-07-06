@@ -334,6 +334,8 @@ if ($result->num_rows > 0)
     $row4=$result3->fetch_assoc();
     $phone_number_user=$row4['phone_number'];
     $smsc_id=$row4['sms_slot_id'];
+    if($smsc_id==0)
+    $smsc_id=1;
     //echo $phone_number;
     
     
