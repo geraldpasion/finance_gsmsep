@@ -95,7 +95,14 @@ function submit_button()
 	}
 
 }
-
+function cancel_btn()
+{
+	if(confirm("Are you sure you want to Cancel? All changes will be lost"))
+	{
+		document.getElementById('form1').action = "list_view.php"
+         document.form1.submit();
+	}
+}
 function show_user_name(checked)
 {
 	if(checked)
@@ -164,8 +171,6 @@ if(!empty($_POST['update_btn']))
     	if($user_name!=$row['user_name'])
     		updateMaker('user_file',array('user_name'),array($user_name),"where user_id='$user_id'");
     }
-    
-    
     
 	$add_array=array('account_type','first_name','last_name','department_id','account_executive_id','phone_number','date_created','sms_slot','user_name');
     $value_array=array($type,$first_name,$last_name,$department,$account_executive,$phone_number,'now()',$sms_slot,$user_id);
@@ -399,7 +404,7 @@ if(!empty($_POST['status']))
             else
             echo "<input type='Submit' name='update_btn' value='Update' style='margin:15px'>";
             
-            echo "<input type='button' value='Cancel' style='margin:15px'>";
+            echo "<input type='button' value='Cancel' style='margin:15px' onclick='cancel_btn()'>";
         echo "</td>";
     echo "</tr>";
     ?>
