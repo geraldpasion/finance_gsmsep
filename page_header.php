@@ -135,7 +135,7 @@ $select="ALTER TABLE `user_file` ADD `sms_slot_id` VARCHAR(15) NOT NULL ;";
 //echo $select;
 $result = $conn->query($select);
 
-echo "<br>"$select."<br>";
+echo "<br>".$select."<br>";
 print_r($result);    	
     }
 //else
