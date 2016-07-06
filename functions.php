@@ -300,7 +300,7 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			//$file="http://".$ip_address."/cgi-bin/sendsms?username=sms-app&password=app125&text=".$text."&to=09065685555&smsc=".$smsc_id;
 			$file="http://".$ip_address."/cgi-bin/sendsms?username=sms-app&password=app125&text=".$text."&to=".$phone_number."&smsc=".$smsc_id;
 			
-			echo $file."<br>";
+	//		echo $file."<br>";
 				$response = file_get_contents($file);
 			
 		echo $response;
@@ -316,6 +316,7 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 }  
    // $insert="insert into received_file(phone_number,message,received_date) values($phone_number,'".addslashes($text)."',now())";
   // $conn->query($insert);
+  return response;
 }
 function selectMakerEach($label,$id,$array,$function , $default='')
 {
