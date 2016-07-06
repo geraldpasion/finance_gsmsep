@@ -302,7 +302,7 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			
 			$in_msg="Hello";
 			
-			$file=$ip_address."/cgi-bin/sendsms?username=sms-app&password=app125&text=Hello&to=09065685555&smsc=smsc";
+			$file="http://".$ip_address."/cgi-bin/sendsms?username=sms-app&password=app125&text=Hello&to=09065685555&smsc=smsc";
 			
 			for($a=0;$a<4;$a++)
 			{
@@ -310,7 +310,7 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			echo $response;
 			}
 			$phone_number="09994715586";
-			$file=$ip_address."/cgi-bin/sendsms?username=sms-app&password=app125&text=Hello&to=".$phone_number."&smsc=smsc";
+			$file="http://".$ip_address."/cgi-bin/sendsms?username=sms-app&password=app125&text=Hello&to=".$phone_number."&smsc=smsc";
 			
 			for($a=0;$a<4;$a++)
 			{
