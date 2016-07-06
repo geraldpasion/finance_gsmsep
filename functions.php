@@ -295,7 +295,13 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			$response = file_get_contents($file );
 			$ip_address="127.0.0.1:13013";
 			$file="http://".$ip_address."/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number."&smsc_id=smsc0";
-			$response = file_get_contents($file );
+			//$response = file_get_contents($file );
+			
+			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello&to=".$phone_number);
+			
+			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello&to=09773598001);
+			
+			
 		}
 		catch(Exception $e)
 		{
