@@ -325,12 +325,15 @@ if ($result->num_rows > 0)
     $result2 = $conn->query($select2);
     $row3=$result2->fetch_assoc();
     $requestor=$row3['requestor'];
+    
     $smsc_id=$row3['smsc_id'];
+    
     $phone_number=$row3['phone_number'];
-     $select3="select phone_number  from user_file where user_id='".$_SESSION['user_id']."' limit 1";
+     $select3="select phone_number,sms_slot_id  from user_file where user_id='".$_SESSION['user_id']."' limit 1";
     $result3 = $conn->query($select2);
     $row4=$result3->fetch_assoc();
     $phone_number_user=$row4['phone_number'];
+    $smsc_id=$row4['sms_slot_id'];
     //echo $phone_number;
     
     
