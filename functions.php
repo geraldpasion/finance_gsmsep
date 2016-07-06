@@ -29,7 +29,8 @@ function updateMaker($table,$columns,$val,$trans_num)
     }
     $update="update $table set ".$in." ".$trans_num." ";
     $conn->query($update);
-    //echo $update;
+    
+    echo $update;
 }
 function getId($table,$var)
 {
@@ -167,7 +168,7 @@ function listMaker($table_name,$order,$select_list,$title,$where='')
                     else
                     echo "<td>Inactive</td>";
                 }
-                else if($select_list[$a]=='department_id')
+                else if($select_list[$a]=='department_id'||$select_list[$a] =="department")
                 {
                     if(empty($department_list[$row[$select_list[$a]]]))
                     {
@@ -213,6 +214,13 @@ function listMaker($table_name,$order,$select_list,$title,$where='')
 	                }
 	                echo "<td>".$user."</td>";
                 }
+                else if ($select_list[$a]=="finance_head")
+                {
+                	$head="";
+                	if($row[$select_list[$a]]!='Choose')
+                	$head=$row[$select_list[$a]];
+                	echo "<td>".$head."</td>";	
+                }
                 else
                 echo "<td>".$row[$select_list[$a]]."</td>";
             }
@@ -242,7 +250,7 @@ function listMaker($table_name,$order,$select_list,$title,$where='')
 
 function selectMakerValue($label,$id,$array,$function,$value,$val='' )
 {
-    
+    //'Finance Head','finance_head',$finance_head_array,'',$finance_head_value,$finance_head
     $func="";
     if($function!='')
     $func="onchange='".$function."'";
@@ -273,8 +281,18 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
    //echo $insert;
 	$text=urlencode($text);
 	
+	
+	$select="select ip_address from system_parameter_file limit 1";
+	$result = $conn->query($select);
+    while($row=$result->fetch_assoc())
+	$ip_address=$row['ip_address'];
+	
 	try {
-	$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number."&smsc_id="+$smsc_id );
+		$file="http://".$ip_address."/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number."&smsc_id="+$smsc_id;
+	
+		//$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number."&smsc_id="+$smsc_id );
+		$response = file_get_contents($file );
+		echo $file;
 	}
 	catch(Exception $e)
 	{
