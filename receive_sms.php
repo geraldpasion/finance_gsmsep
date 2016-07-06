@@ -28,7 +28,7 @@ if ($conn->query($query) === TRUE) {
 } else {
     echo "Error: " . $query . "<br>" . $conn->error;
 }
-echo sendSmsMessage();
+echo sendSmsMessage('09065685555','Hello');
 //$conn->close();
 
 
