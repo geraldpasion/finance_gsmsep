@@ -301,6 +301,14 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			
 			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello0&to=09773598001&smsc_id=smsc0");
 			echo $response;
+			
+			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello3&to=09773598001&smsc_id=smsc1");
+			echo $response;
+			
+			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello3&to=09773598001&smsc_id=smsc2");
+			echo $response;
+			
+			
 			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello3&to=09773598001&smsc_id=smsc3");
 			
 			echo $response;
