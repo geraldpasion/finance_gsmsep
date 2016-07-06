@@ -109,7 +109,7 @@ echo "<tr><td colspan='100' style='border:none;text-align:center;padding:15px'><
 		for($a=0;$a<count($pos);$a++)
 		{
 			for($k=0;$k<count($edit);$k++)
-			echo "<th style='text-align:center;padding:10px'  >".$edit[$k]."</td>";
+			echo "<th style='text-align:center;padding:5px'  >".$edit[$k]."</td>";
 		}
 foreach($data as $head=>$d1)
 {
