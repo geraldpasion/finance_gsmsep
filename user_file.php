@@ -23,6 +23,12 @@ include 'page_header.php';
             document.getElementById('phone_id').style.display='none';
             
     }
+    function cancel_btn()
+    {
+    	document.getElementById('form1').action = "user_list.php";
+        document.form1.submit();
+    
+    }
 </script>
 
 <?php
@@ -43,40 +49,73 @@ $username="";
         $first_name=getPost('first_name','Choose');
         $last_name=getPost('last_name','Choose');
         $account_executive_id=" ";
-        if($user_type=='Secretary' || $user_type=='Finance Head'||$user_type=='Account Executive')
+        $trans_num=getPost('trans_num','Choose');
+        if($trans_num==0)
         {
-            $account_executive_id=$_POST['finance_head'];
-            if( $user_type=='Finance Head' ||$user_type=='Account Executive')
-            $user_type='account executive';
-            else
-            {
-                $select="select department from master_address_file as a inner join master_department_file  as k
-                on a.department_id=k.department_id
-                where account_id='".$account_executive_id."' and account_type='account executive' limit 1";
-                $result = $conn->query($select);
-                $row=$result->fetch_assoc();
-                $department=$row['department'];
-            }
-            $id=getId('master_address_file','account_id');
+	        if($user_type=='Secretary' || $user_type=='Finance Head'||$user_type=='Account Executive')
+    	    {
+        	    $account_executive_id=$_POST['finance_head'];
+            	if( $user_type=='Finance Head' ||$user_type=='Account Executive')
+            	$user_type='account executive';
+            	else
+            	{
+                	$select="select department from master_address_file as a inner join master_department_file  as k
+                	on a.department_id=k.department_id
+                	where account_id='".$account_executive_id."' and account_type='account executive' limit 1";
+                	$result = $conn->query($select);
+                	$row=$result->fetch_assoc();
+                	$department=$row['department'];
+            	}
+            	$id=getId('master_address_file','account_id');
             
-            $add_array=array('account_type',"account_id",'first_name','last_name','department_id','account_executive_id','phone_number','date_created');
-            $value_array=array($user_type,$id,$first_name,$last_name,$department,$account_executive_id,$phone_number,'now()');
+            	$add_array=array('account_type',"account_id",'first_name','last_name','department_id','account_executive_id','phone_number','date_created');
+            	$value_array=array($user_type,$id,$first_name,$last_name,$department,$account_executive_id,$phone_number,'now()');
             
             
-            $result=insertMaker('master_address_file',$add_array,$value_array);
-            //$result=insertMaker('master_address_file',array('secretary','secretary_id','account_executive_id'),array($name,$id,$account_executive_id));
+            	$result=insertMaker('master_address_file',$add_array,$value_array);
+            	//$result=insertMaker('master_address_file',array('secretary','secretary_id','account_executive_id'),array($name,$id,$account_executive_id));
+        	}
+        	if($department=='Choose')
+        	$department="";
+        	$select="select user_id from user_file order by user_id desc limit 1";
+        	$result = $conn->query($select);
+        	$row=$result->fetch_assoc();
+        	$user_id=(int)$row['user_id']+1 ;      
+        	 $message="Successfully added New User";
+        
+       	 $result=insertMaker('user_file',array('user_id','user_name','password','first_name','last_name','user_type','department','finance_head','phone_number'),array($user_id,$username,'password123',$first_name,$last_name,$user_type,$department,$finance_head,$phone_number));
         }
-        if($department=='Choose')
-        $department="";
-        $select="select user_id from user_file order by user_id desc limit 1";
-        $result = $conn->query($select);
-        $row=$result->fetch_assoc();
-        $user_id=(int)$row['user_id']+1 ;      
+        else
+        {
+        	$user_id=$trans_num;
+        	$select="select * from user_file where user_id='$trans_num' limit 1";
+        	$result = $conn->query($select);
+        	$row=$result->fetch_assoc();
+        	$user_type_old="";
+        	while($row=$result->fetch_assoc())
+    		{
+    			$user_type_old=$row['user_type'];
+    		}
+        	
+        	if($user_type=='Secretary' || $user_type=='Finance Head'||$user_type=='Account Executive')
+    	    {
+    	    	$add_array=array('account_type','first_name','last_name','department_id','account_executive_id','phone_number','date_created','sms_slot','user_name');
+    			$value_array=array($type,$first_name,$last_name,$department,$account_executive,$phone_number,'now()',$sms_slot,$user_id);
+ 				if($user_type_old=='')
+ 				$result=insertMaker('master_address_file',$add_array,$value_array);
+            	else
+    			$result=updateMaker('master_address_file',$add_array,$value_array,"where account_id='$account_id'");
+    	    }
+    	    
+    	    
+    	 	$result=updateMaker('user_file',array('user_id','user_name','first_name','last_name','user_type','department','finance_head','phone_number'),array($user_id,$username,$first_name,$last_name,$user_type,$department,$finance_head,$phone_number)," where user_id='$user_id'");
+                
+       		 $message="Successfully Editted  User"; 
         
-        $result=insertMaker('user_file',array('user_id','user_name','password','first_name','last_name','user_type','department','finance_head','phone_number'),array($user_id,$username,'password123',$first_name,$last_name,$user_type,$department,$finance_head,$phone_number));
+        }
+       
         
-        
-        echo "<script>alert('Successfully added New User');";
+        echo "<script>alert('".$message."');";
         
          echo "document.getElementById('form1').action='user_list.php';";
                  
@@ -103,7 +142,7 @@ $username="";
     while($row=$result->fetch_assoc())
     {
         $finance_value[]=$row['account_id'];
-        $finance_head[]=$row['account_executive'];
+        $finance_head_array[]=$row['account_executive'];
     }
     /*
     $select="select user_name from user_file where mas_status=1 order by user_name";
@@ -111,10 +150,11 @@ $username="";
     $username=array();
     while($row=$result->fetch_assoc())
         $username[]=$row['user_name'];*/
+        $trans_num=0;
     if(!empty($_REQUEST['trans_num']))
     {
         $user_id=$_REQUEST['trans_num'];
-        
+        $trans_num=$_REQUEST['trans_num'];
         $select="select * from user_file where user_id='$user_id' limit 1";
         $result = $conn->query($select);
         $row=$result->fetch_assoc();
@@ -130,6 +170,7 @@ $username="";
         if( $user_type=='account executive')
             $user_type='Finance Head';
     }
+    echo "<input type='hidden' name='trans_num' value='$trans_num'>";
     echo textMaker('Username','user_name',$username);
     echo textMaker('First Name','first_name',$first_name);
     echo textMaker('Last Name','last_name',$last_name);
@@ -166,13 +207,14 @@ $username="";
     echo "</div></td></tr>";
     echo "<tr><td colspan=2><div style='display:none' id='finance_div'>";
     echo "<table>";
-    echo selectMakerValue('Finance Head','finance_head',$finance_head,'',$finance_head);
+    //$label,$id,$array,$function,$value,$val=''
+    echo selectMakerValue('Finance Head','finance_head',$finance_head_array,'',$finance_value,$finance_head);
     echo "</table>";
     echo "</div></td></tr>";
     echo "<tr>";
         echo "<td colspan=2 style='text-align:center'>";
             echo "<input type='submit' name='submit_btn' value='Submit' style='margin:15px'>";
-            echo "<input type='button' value='Cancel' style='margin:15px'>";
+            echo "<input type='button' value='Cancel' onclick='cancel_btn()' style='margin:15px'>";
         echo "</td>";
     echo "</tr>";
     echo "<script>get_type(\"$user_type\")</script>";
