@@ -136,7 +136,7 @@ $str_request2=explode("/",$str_request);/$str_request=$str_request2[count($str_r
 if ("login"== $str_request && empty($_SESSION['uname']))
 echo "";
 else if("login.php"!= $str_request && empty($_SESSION['uname']))
- echo "<script>alert('".$str_request." Session Expired Please Log In');window.location.assign('login.php')</script>";
+ echo "<script>alert('Session Expired Please Log In');window.location.assign('login.php')</script>";
 else
 {
 if($_SESSION['user_type']=='account executive')
