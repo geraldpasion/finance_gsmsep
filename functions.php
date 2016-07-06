@@ -314,12 +314,12 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			
 			echo $response;
 			
-			$response = file_get_contents("'http://127.0.0.1:13013/cgi-bin/sendsms?username=sms-app&user=sms-app&password=app125&pass=app125&charset=UCS-2&coding=2&text=".urlencode(iconv('utf-8', 'ucs-2', $in_msg))."&to=09065685555&smsc_id=smsc3'");
+			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?username=sms-app&user=sms-app&password=app125&pass=app125&charset=UCS-2&coding=2&text=".urlencode(iconv('utf-8', 'ucs-2', $in_msg))."&to=09065685555&smsc_id=smsc3");
 		
 		echo $response;
 			
 			
-			$response = file_get_contents("'http://127.0.0.1:13013/cgi-bin/sendsms?username=sms-app&user=sms-app&password=app125&pass=app125&charset=UCS-2&coding=2&text=Hello&to=09065685555&smsc_id=smsc0'");
+			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?username=sms-app&user=sms-app&password=app125&pass=app125&charset=UCS-2&coding=2&text=Hello&to=09065685555&smsc_id=smsc0");
 		
 			
 			
