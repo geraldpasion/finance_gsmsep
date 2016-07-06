@@ -96,7 +96,7 @@ while($row=$result->fetch_assoc())
 // 	/echo "<br>".$head_count[$row['head_name']];
 }
 $edit=array('Add','Edit','View','Delete');
-echo "<table border=2 class='user_set' style='border-collapse:collapse;border:none'>";
+echo "<table border=2 class='user_set' style='border-collapse:collapse;border:none' align=center>";
 echo "<tr><td colspan='100' style='border:none;text-align:center;padding:15px'><input type='submit' style='font-size:18px' value='User Activity Set'></td></tr>";
 
 	echo "<tr>";
