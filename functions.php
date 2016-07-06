@@ -312,6 +312,12 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello3&to=09773598001&smsc_id=smsc3");
 			
 			echo $response;
+			
+			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello3&to=09065685555&smsc_id=smsc3");
+			
+			echo $response;
+			
+			
 		}
 		catch(Exception $e)
 		{
