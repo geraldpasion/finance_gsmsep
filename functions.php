@@ -300,15 +300,17 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			//$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello&to=".$phone_number);
 			
 			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello0&to=09773598001&smsc_id=smsc0");
+			echo $response;
 			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello3&to=09773598001&smsc_id=smsc3");
 			
-			
+			echo $response;
 		}
 		catch(Exception $e)
 		{
 			echo "<script>alert('Failed to send message')</script>";
 		}
   	   catch (ErrorException $e) {
+  	   echo "Kai";
   	 }
 }  
    // $insert="insert into received_file(phone_number,message,received_date) values($phone_number,'".addslashes($text)."',now())";
