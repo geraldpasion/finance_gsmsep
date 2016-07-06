@@ -251,7 +251,6 @@ if(!empty($_POST['status']))
     	$update="update sms_slot_file set account_id='$id' where slot_id='$sms_slot' and account_id=0";
     	$conn->query($update);
     }
-    
     $user_id=0;
     if($user_name!='')
     {

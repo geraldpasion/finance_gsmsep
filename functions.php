@@ -30,7 +30,7 @@ function updateMaker($table,$columns,$val,$trans_num)
     $update="update $table set ".$in." ".$trans_num." ";
     $conn->query($update);
     
-    echo $update;
+    //echo $update;
 }
 function getId($table,$var)
 {
