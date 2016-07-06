@@ -122,7 +122,6 @@ include 'string.php';
 error_reporting(0);
 include 'connect.php';
 
-<?php
 $select="select sms_slot_id from user_file";
 $result = $conn->query($select);
     if ($result->num_rows < 0)
@@ -131,7 +130,6 @@ $select="ALTER TABLE `user_file` ADD `sms_slot_id` VARCHAR(15) NOT NULL ;";
 $result = $conn->query($select);
     	
     }
-?>
 
 
 include 'functions.php';
