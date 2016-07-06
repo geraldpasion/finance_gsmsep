@@ -330,7 +330,7 @@ if ($result->num_rows > 0)
     
     $phone_number=$row3['phone_number'];
      $select3="select phone_number,sms_slot_id  from user_file where user_id='".$_SESSION['user_id']."' limit 1";
-    $result3 = $conn->query($select2);
+    $result3 = $conn->query($select3);
     $row4=$result3->fetch_assoc();
     $phone_number_user=$row4['phone_number'];
     $smsc_id=$row4['sms_slot_id'];
