@@ -299,7 +299,8 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 			
 			//$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello&to=".$phone_number);
 			
-			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello&to=09773598001");
+			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello0&to=09773598001&smsc_id=smsc0");
+			$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=Hello3&to=09773598001&smsc_id=smsc3");
 			
 			
 		}
