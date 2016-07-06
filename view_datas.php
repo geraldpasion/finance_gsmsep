@@ -383,7 +383,6 @@ Message:".$_REQUEST['chat_box'];
     echo "<td style='vertical-align:top'>";
     echo "<table style='border-collapse:collapse'>";
     echo "<tr><th colspan=2 style='text-align:left'>".$head."</th></tr>";
-    
     $status=$row['status'];
      $ae_status=$row['ae_status'];
     for($a=0;$a<count($val)-1;$a++)
