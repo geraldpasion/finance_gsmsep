@@ -20,7 +20,7 @@ echo "<br>Text Message: ".$_GET['text'];
 echo "<br>Date Received: ".$_GET['received_date'];
 
 //$query = "INSERT INTO sms_files (received, sms, date_sent) Values ('".$_GET['phone']."','".$_GET['text']."','".$_GET['received_date']."')";
-$query = "INSERT INTO sms_files (received, sms) Values ('".$_GET['phone']."','".$_GET['text']."')";
+$query = "INSERT INTO sms_files (received, sms,date_sent) Values ('".$_GET['phone']."','".$_GET['text']."',now())";
 $result = mysql_query($query);
 
 if ($conn->query($query) === TRUE) {
