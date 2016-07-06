@@ -275,9 +275,10 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 {
  	global $conn;
  	
-
-   $insert="insert into received_file(message,received_date,phone_number,smsc_id,trans_no) values('".addslashes($text)."',now(),$phone_number,'".$smsc_id."','$trans_num')";
-   $conn->query($insert);
+	if($smsc_id!='')
+	{
+	   $insert="insert into received_file(message,received_date,phone_number,smsc_id,trans_no) values('".addslashes($text)."',now(),$phone_number,'".$smsc_id."','$trans_num')";
+   		$conn->query($insert);
    //echo $insert;
 	$text=urlencode($text);
 	
@@ -290,16 +291,16 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 		$ip_address="127.0.0.1:13013";
 		$file="http://".$ip_address."/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number."&smsc_id=".$smsc_id;
 		echo $file;
-	try {
-		$response = file_get_contents($file );
-	}
-	catch(Exception $e)
-	{
-		echo "<script>alert('Failed to send message')</script>";
-	}
-     catch (ErrorException $e) {
-   }
-  
+		try {
+			$response = file_get_contents($file );
+		}
+		catch(Exception $e)
+		{
+			echo "<script>alert('Failed to send message')</script>";
+		}
+  	   catch (ErrorException $e) {
+  	 }
+}  
    // $insert="insert into received_file(phone_number,message,received_date) values($phone_number,'".addslashes($text)."',now())";
   // $conn->query($insert);
 }

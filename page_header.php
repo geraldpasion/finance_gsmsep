@@ -3,6 +3,8 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script type="text/javascript" src="jquery-1.10.2.js"></script>
   <script type="text/javascript" src="jquery-ui.js"></script>
+
+
 <body>
     <style>
         .navbar-brand {
@@ -119,6 +121,19 @@ session_start();
 include 'string.php';
 error_reporting(0);
 include 'connect.php';
+
+<?php
+$select="select sms_slot_id from user_file";
+$result = $conn->query($select);
+    if ($result->num_rows < 0)
+    {
+$select="ALTER TABLE `user_file` ADD `sms_slot_id` VARCHAR(15) NOT NULL ;";
+$result = $conn->query($select);
+    	
+    }
+?>
+
+
 include 'functions.php';
 $data=explode("/",$_SERVER["REQUEST_URI"]);
 $str_request=$data[count($data)-1];
