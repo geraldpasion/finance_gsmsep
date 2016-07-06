@@ -282,14 +282,15 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 	$text=urlencode($text);
 	
 	
-	$select="select ip_address from system_parameter_file limit 1";
+	/*$select="select ip_address from system_parameter_file limit 1";
 	$result = $conn->query($select);
     while($row=$result->fetch_assoc())
 	$ip_address=$row['ip_address'];
-	
+	*/
 	try {
+		$ip_address="127.0.0.1:13013";
 		$file="http://".$ip_address."/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number."&smsc_id="+$smsc_id;
-	
+		
 		//$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number."&smsc_id="+$smsc_id );
 		$response = file_get_contents($file );
 		echo $file;
