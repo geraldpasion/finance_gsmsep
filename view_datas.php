@@ -448,6 +448,7 @@ Message:".$_REQUEST['chat_box'];
         echo "<tbody style='max-height:100px;overflow-y:auto;display:block;min-width:690px'>";
         $quantity=0;
         $amount=0;
+        $total_amount=0.00;
         while($row2=$result818->fetch_assoc())
         {
             echo "<tr>";
@@ -459,6 +460,7 @@ Message:".$_REQUEST['chat_box'];
             echo "</tr>";
             $quantity+=$row2['quantity'];
         $amount+=$row2['unit_price'];
+        $total_amount+=($row2['unit_price']*$row2['quantity']);
         }
         
         echo "</tbody>";
@@ -467,7 +469,7 @@ Message:".$_REQUEST['chat_box'];
                 echo "<th style='width:326px;padding:10px;border:1px solid black;text-align:left'></th>";
                 echo "<td style='width:90px;padding:10px;text-align:right'>".$quantity."</td>";
                  echo "<td style='width:90px;padding:10px;text-align:right'>".number_format($amount,2)."</td>";
-                 echo "<td style='width:90px;padding:10px;text-align:right'>".number_format(($amount*$quantity),2)."</td>";
+                 echo "<td style='width:90px;padding:10px;text-align:right'>".number_format(($total_amount),2)."</td>";
             echo "</tr>";
         echo "</tfoot>";
         echo "</table></td>";
