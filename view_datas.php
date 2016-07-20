@@ -295,16 +295,16 @@ else
 }
 
 $result = $conn->query($select);
+
 $result818 = $conn->query($select2);
 if ($result->num_rows > 0)
 {
-    
+
    $row = $result->fetch_assoc();
    $requestor_id=$row['requestor'];
    $secretary=$row['secretary'];
    $engineer=$row['engineer'];
-   
-   
+   $file=$row['file_name'];
    $select="select concat(first_name,' ',last_name) as name from master_address_file where
     account_type='Secretary' and mas_status=1 and account_id='$secretary' limit 1";
      $result = $conn->query($select);
@@ -495,6 +495,15 @@ Message:".$_REQUEST['chat_box'];
         }
     }
     
+    if($file!='')
+    {
+    echo "kau";
+    echo "<tr><td colspan=5>";
+    echo "<img id='logo2' src='uploads/$file' alt='Sysgen' style='max-width:500px;max-Height:485px'>";
+    echo "</td></tr>";
+    }
+    else
+    echo "Maria";
     $select="select remarks,date_created,rejected_by,status from po_remarks_file where trans_no='$trans_num' limit 1";
     $result2 = $conn->query($select);
     $rowcount=mysqli_num_rows($result2);
@@ -517,7 +526,6 @@ Message:".$_REQUEST['chat_box'];
         }
          echo "</table></td></tr>";
     }
-    
     //$access[$for_qa_page]
     //For QA Approval
     echo "<tr><td colspan=2 style='text-align:center;padding:20px'>";
