@@ -2,7 +2,7 @@
 include 'page_header.php';
 $type=$_REQUEST['page_type'];
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 ?>
 <form action="file_upload.php"   name='form2' id='form2'  method="post" enctype="multipart/form-data">
 
