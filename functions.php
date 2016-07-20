@@ -290,7 +290,7 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 	*/
 		$ip_address="127.0.0.1:13013";
 		$file="http://".$ip_address."/cgi-bin/sendsms?user=sms-app&pass=app125&text=".$text."&to=".$phone_number."&smsc_id=".$smsc_id;
-		echo $file;
+		//echo $file;
 		try {
 		ini_set("allow_url_fopen", 1);
 			//$response = file_get_contents($file );
@@ -303,7 +303,7 @@ function sendText($text,$phone_number,$smsc_id,$trans_num)
 	//		echo $file."<br>";
 				$response = file_get_contents($file);
 			
-		echo $response;
+		//echo $response;
 			
 		}
 		catch(Exception $e)
