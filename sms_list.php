@@ -109,14 +109,12 @@ $title='SMS List';
                $where.=" date_sent like '".date("Y-m-d",strtotime($date_to))."%' ";
     }
     $select="select ".toStringList($select_list).$sel." from sms_files as a left join po_file as k on a.trans_no=k.trans_no  $where order by date_sent,sms_id,received ";
-    //    echo $select;
     ?>
     <h2><?php echo $title;?></h2>
     <form name='form1' id='form1' method=post>
     <table class='table_data'>
     <?php
-    $result = $conn->query($select." order by $order limit $start,$limit");
-   // echo $select." order by $order limit $start,$limit";
+    $result = $conn->query($select."  limit $start,$limit");
     $table="";
     $table.="<tr>";
           $table.= "<th>Sender</th>";
@@ -131,7 +129,6 @@ $title='SMS List';
     while($row=$result->fetch_assoc())
     {
           $received[$row['received']]=$row['received'];
-          
         $table.= "<tr>";
           if(empty($executive[$row['received']]))
           {
@@ -179,6 +176,7 @@ $title='SMS List';
           //}
         $table.= "</tr>";
     }
+   
     echo selectMakerEach('Received','phone_number',$received_name,'' ,$phone_number);
      echo "<tr><th colspan=10 style='text-align:left; border:none'>
      <table align=left><tr><th style='border:none;text-align:left'>Date Sent</th><td style='border:none'>
