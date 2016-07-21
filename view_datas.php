@@ -335,9 +335,9 @@ if ($result->num_rows > 0)
     $result3 = $conn->query($select3);
     $row4=$result3->fetch_assoc();
     $phone_number_user=$row4['phone_number'];
-    $phone_number1=$phone_number_user;
-    if($phone_number_user[0]!="+")
-    	$phone_number1="+63".substr($phone_number_user,1,strlen($phone_number_user));
+    $phone_number1=$phone_number;
+    if($phone_number[0]!="+")
+    	$phone_number1="+63".substr($phone_number,1,strlen($phone_number));
     
     $smsc_id=$row4['sms_slot_id'];
     //if($smsc_id==0)
@@ -605,7 +605,7 @@ Message:".$_REQUEST['chat_box'];
         echo "</table>";
         echo "</td>";
     	
-        $select="select * from sms_files where hide!=1 and trans_no!='$trans_num' and (received='$phone_number_user' or received='$phone_number1' ) group by sms_id,received,date_sent,sms order by date_sent desc ";
+        $select="select * from sms_files where hide!=1 and trans_no!='$trans_num' and (received='$phone_number' or received='$phone_number1' ) group by sms_id,received,date_sent,sms order by date_sent desc ";
         $result = $conn->query($select);
         //echo $select;
         if($result->num_rows > 0)
