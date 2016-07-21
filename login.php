@@ -19,7 +19,7 @@ if(!empty($_POST['sub_btn']))
         $filter=" group by a.menu_id ";
         $SELECT="SELECT * from user_access_file_new as a inner join access_file_20161 as k on a.menu_id=k.menu_id $filter";
     	$result = $conn->query($SELECT);
-    	echo $SELECT;
+    	//echo $SELECT;
     	$access_type=array();
     	while($row=$result->fetch_assoc())
     	{
