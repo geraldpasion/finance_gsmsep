@@ -497,13 +497,10 @@ Message:".$_REQUEST['chat_box'];
     
     if($file!='')
     {
-    echo "kau";
     echo "<tr><td colspan=5>";
     echo "<img id='logo2' src='uploads/$file' alt='Sysgen' style='max-width:500px;max-Height:485px'>";
     echo "</td></tr>";
     }
-    else
-    echo "Maria";
     $select="select remarks,date_created,rejected_by,status from po_remarks_file where trans_no='$trans_num' limit 1";
     $result2 = $conn->query($select);
     $rowcount=mysqli_num_rows($result2);
