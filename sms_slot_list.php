@@ -157,7 +157,8 @@ echo "<table class='table_data'>";
     	echo "<th>Slot Name</th>";
     	echo "<th>Phone Number</th>";
     
-    	echo "<th>Action</th>";
+    	echo "<th>EDIT</th>";
+    	echo "<th>Test SMS</th>";
     echo "</tr>";
     for($a=0;$a<$max_sms_slot;$a++)
     {
