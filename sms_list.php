@@ -155,7 +155,12 @@ $title='SMS List';
                 if($select_list[$a]=='account_type')
                     $table.= "<td>".ucwords(str_replace("_"," ",$row['account_type']))."</td>";
                else if($select_list[$a]=='date_sent')
+                {
+                	if($row['date_sent']!='0000-00-00 00:00:00')
                     $table.="<td>".convert_to_dateTime($row['date_sent'])."</td>";
+                    else
+                    $table.="<td></td>";
+                }
                 else if($select_list[$a]=='date_created')
                 {
                     $date="";
@@ -238,3 +243,6 @@ $title='SMS List';
     // datepickr.prototype.l10n.months.longhand = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 </script>
+<?php
+    include 'page_footer.php';
+    ?>

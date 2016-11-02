@@ -9,6 +9,8 @@ function print_me()
 			document.getElementById('form1').target = '_blank'
  			document.getElementById('form1').action = 'list_payments_fpdf.php'
             document.form1.submit();
+            document.getElementById('form1').target = '_self'
+            document.getElementById('form1').action = 'list_payments.php'
 }
 </script>
 <style>
@@ -231,3 +233,7 @@ function print_me()
      datepickr('#date_to_cal', { altInput: document.getElementById('date_to') });
 
 </script>
+
+<?php
+    include 'page_footer.php';
+    ?>

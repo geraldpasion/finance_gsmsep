@@ -59,9 +59,13 @@ h2 {
     -webkit-margin-end: 0px;
     font-weight: bold;
 }
+.head_color
+{
+	background-color: #f8f8f8;
+}
 .page_header
 {
-	background-color: #f8f8f8;border-color: #e7e7e7;height:141px;
+	border-color: #e7e7e7;height:141px;
 }
   .administration
   {
@@ -146,15 +150,6 @@ include 'functions.php';
 $data=explode("/",$_SERVER["REQUEST_URI"]);
 $str_request=$data[count($data)-1];
 $str_request=str_replace(".php","",$str_request);
-/*
-$str_request=str_replace("/finance_gsm","",$_SERVER["REQUEST_URI"]);
-$str_request=str_replace("/","",$str_request);
-$str_request=str_replace("/","",$str_request);
-$file=$str_request;
-$str_request2=explode(".php",$str_request);
-$str_request=$str_request2[0];
-$str_request2=explode("/",$str_request);/$str_request=$str_request2[count($str_request2)-1];
-*/
 
 if ("login"== $str_request && empty($_SESSION['uname']))
 echo "";
@@ -225,16 +220,17 @@ $file="view_data_combine.php";
     }
         xmlhttp.open("GET",url,true);
           xmlhttp.send();
-    }
-   
+    } 
 </script>
-<table class='page_header' style='width:80%'  align=center>
+<table class='head_color' style='top:-10px;width:110%' >
 <tr>
-<td style='padding-left:20px;padding-top:10px;margin:-10px'>
-<img id="logo" src="images/logo.gif" alt="Sysgen" width="195" height="85">
-</td>
-<td style='text-align:right;veritical-align:top;'>
-
+<td>
+	<table class='page_header' style='width:80%'  align=center>
+		<tr>
+			<td style='padding-left:20px;padding-top:10px;margin:-10px'>
+				<img id="logo" src="images/logo.gif" alt="Sysgen" width="195" height="85">
+			</td>
+			<td style='text-align:right;veritical-align:top;'>
  <?php
 //<input type='button' class='administration ui-icon-circle-triangle-s' id='test'  value='Administrator'>
             if(!empty($_SESSION['uname']))
@@ -242,7 +238,6 @@ $file="view_data_combine.php";
                     ?>
                
                 <nav class="primary_nav_wrap" style='padding-right:35px'>
-               
                <?php
                         include 'menu.php';
                 ?>
@@ -250,23 +245,25 @@ $file="view_data_combine.php";
             <?php
             }
                 ?>  
-</td>
-</tr>
-<tr>
-<td colspan=2 style='padding-right:30px;text-align:right'><br><br>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 style='padding-right:30px;text-align:right'><br><br>
  <?php if(!empty($_SESSION['uname']))
             echo "<span style='color:black'>Welcome ".$_SESSION['uname']."</span>";
             ?>
-</td>
-<tr>
-<td colspan=2 style='padding-right:30px;padding-bottom:-10px'>
+			</td>
+		<tr>
+			<td colspan=2 style='padding-right:30px;padding-bottom:-10px'>
  <?php
 	if(!empty($_SESSION['uname']))
                         include 'menu2.php';
                 ?>
 				</td>
-
-</table>
-
+		</tr>
+	</table>
+	</td>
+		</tr>
+	</table>
 <div style='height:51px'><br></div>
 <div class='container'>

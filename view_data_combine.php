@@ -411,14 +411,7 @@ if($type=='Without Po')
 
 <div>
     <table class='filter' align=left>
-        <tr>
-            <td colspan=2>
-                <ul class='nav nav-tabs'>
-                    <li <?php echo $active_po;?> role='presentation'><a href='view_data_combine.php?type=With Po'>With PO</a></li>
-                    <li <?php echo $active_wpo;?> role='presentation'><a href='view_data_combine.php?type=Without Po'>Without PO</a></li>
-                </ul>
-            </td>
-    </tr>
+       
 <?php echo "<input type='hidden' id='type' name='type' value='".$type."'>"; ?>
     <?php
     
@@ -653,85 +646,27 @@ echo "<input type='hidden' id='payment_type".$trans_num."' value='".$row['paymen
     $data[]=$items;
 }
 ?>
-
-<?php
-
-?>
-
-<table class='table_data' style='width:1050px'>
+<table class='table_data1' style='min-width:1295px;width:105%'>
     <?php
         echo "<tr>";
     for($a=0;$a<count($column);$a++)
-            echo "<th>".$column[$a]."</th>";
-    echo "<th colspan=2>Action</th>";
+            echo "<th style='text-align:center'>".$column[$a]."</th>";
+    echo "<th colspan=3 style='text-align:center'>Action</th>";
         echo "</tr>";
-        
-        //print_r($access);
-        
-        
         for($a=0;$a<count($data);$a++)
         {
             echo "<tr>";
-            echo "<td>".$data[$a][0]."</td>";
-            echo "<td style='width:200px'>".$data[$a][1]."</td>";
+            echo "<td style='text-align:center'>".$data[$a][0]."</td>";
+            echo "<td style='width:200px;text-align:center'>".$data[$a][1]."</td>";
             for($k=2;$k<count($data[$a])-3;$k++)
              {
-                echo "<td>".$data[$a][$k]."</td>";
+                echo "<td style='text-align:center'>".$data[$a][$k]."</td>";
 				}
 			 $trans_num=$data[$a][$k+1];
-			/*
-            /if($data[$a][$k+2]!=1)
-            echo "<td>Rejected</td>";  
-            else
-            {
-				$value=$data[$a][$k];
-				if($value==$for_qa_approval)
-				$value=$qa_text;
-				else if($value==$for_ae_approval)
-				$value=$ae_text;
-				else if($value==$request_release)
-					$value=$request_release_text;		
-				echo "<td>".$value."</td>";
-			}
-            $trans_num=$data[$a][$k+1];
-          if(!empty($access['View']))
-            echo "<td><input type='image' src='assets/view_details.png' name='image' width='20' height='20' onclick=\"get_data('".$type."','View','".$trans_num."')\"></td>";
-            
-            //echo "<br>".$_SESSION['uname']."==".$data[$a][$k-1]." && (".$data[$a][$k]."==pending'|| ".$data[$a][$k+2];
-            if(!empty($access['Edit']))
-            {
-               if($_SESSION['uname']==$data[$a][$k-1] && ($data[$a][$k]=='pending'|| $data[$a][$k+2]!=1))
-               echo "<td><input type='image' src='assets/Edit.png' name='image' width='20' height='20' onclick=\"get_data('".$type."','Edit','".$trans_num."')\"></td>";
-            }  
-            //echo "<td><input type='image' src='assets/cross.jpg' name='image' width='20' height='20' onclick=\"get_data('".$type."','Reject','".$data[$a][$k]."')\"></td>";
-            if(!empty($access['Reject']))
-            {
-               if($data[$a][$k+2]==1)
-               echo "<td><img  src='assets/cross.jpg' name='image' width='20' height='20' onclick=\"reject_this('".$type."','".$data[$a][$k]."','".$trans_num."');\"></td>";
-            }
-            
-            $k++;
-
-            echo "<br>";
-            echo "<td>";
-          
-			if(!empty($access[$data[$a][$k-1]]))
-          {
-			$value=$data[$a][$k-1];
-			if($value==$request_release)
-			$value=$request_release_btn;
-            if($data[$a][$k-1]!='Received')
-            echo "<input type='button' onclick='button_press(this.value,".$data[$a][$k].")' value='".$value."'>";
-            else "<td></td>";
-          }
-            echo "</td>";
-        */
-       // echo "<br>".$status[$a];
-       
-       
+		
     	$temp_status=$status[$a];
     	
-		echo "<td>";
+		echo "<td style='border:none;'>";
 		
 		if($status[$a]>=4 &&$ae_status[$a]!=1)
 		$temp_status=4;
@@ -739,7 +674,7 @@ echo "<input type='hidden' id='payment_type".$trans_num."' value='".$row['paymen
 		if($status[$a]>='Rejected')
 			$status_name[$status[$a]]=$status[$a];
 		else if($status[$a]>=4 &&!empty($access_menu[$menu_id[4]])&&$ae_status[$a]!=1)
-			echo "<input type='button' onclick='button_press(this.value,".$data[$a][$k+1].",4)' value='".$button_name[4]."'>";
+			echo "<div class='div_button' onclick='button_press(this.value,".$data[$a][$k+1].",4)'>".$button_name[4]."'</div>";
 		else if($ae_status[$a]==1 &&$status[$a]==4)
 			$temp_status=$status[$a]+1;
 		else if($ae_status[$a]==1 )
@@ -748,48 +683,38 @@ echo "<input type='hidden' id='payment_type".$trans_num."' value='".$row['paymen
 		//echo "<br>Status".$status[$a]." ".$temp_status."=".$ae_status[$a];
 			
 		if($status[$a]=='QA Approve')
-		echo "<td>".$status_name[2]."</td>";	
+		echo "<td >".$status_name[2]."</td>";	
 		else if($status[$a]=='pending')
-		echo "<td>Pending</td>";
+		echo "<td >Pending</td>";
 		else if($status[$a]=='Received')
-		echo "<td>Received</td>";
+		echo "<td >Received</td>";
 		else 
-			echo "<td>".$status_name[$temp_status]."</td>";
+			echo "<td >".$status_name[$temp_status]."</td>";
 		if($status[$a]==4)
 		$status[$a]=$status[$a]+1;
 		
-		if($status[$a]=='QA Approve' &&!empty($access_menu[$menu_id[2]]))
-		echo "<td><input type='button' onclick='button_press(this.value,".$data[$a][$k+1].",2)' value='".$button_name[2]."'></td>";	
+		if($status[$a]=='QA Approve' &&!empty($access_menu[$menu_id[2]])&&$button_name[$status[$a]]!='')
+			echo "<td ><input  class='div_button' type='button' onclick='button_press(this.value,".$data[$a][$k+1].",2)' value='".$button_name[$status[$a]]."'></td>";	
 		else if($status[$a]=='pending'||($status[$a]==8 && $ae_status[$a]==2))
-		echo "<td></td>";
+			echo "<td style='border:none;'></td>";
 		else if(!empty($access_menu[$menu_id[$status[$a]]]))
-			echo "<td><input type='button' onclick='button_press(this.value,".$data[$a][$k+1].",\"".$status[$a]."\")' value='".$button_name[$status[$a]]."'></td>";
+		{
+			echo "<td style='border:none;'><div class='div_button'   onclick='button_press(this.value,".$data[$a][$k+1].",\"".$status[$a]."\")' >".$button_name[$status[$a]]."</div></td>";
+			//	echo "<td style='border:none;'><input type='button' style='height: 30px;padding: 10px 0; display:inline-block;height:100px'   onclick='button_press(this.value,".$data[$a][$k+1].",\"".$status[$a]."\")' value='".$temp1."'></td>";
+		}
 		else
-		echo "<td></td>";
-		
-
-		
-		//if(!empty($access['View']))
-            echo "<td><input type='image' src='assets/view_details.png' name='image' width='20' height='20' onclick=\"get_data('".$type."','View','".$trans_num."')\"></td>";
-            
-            //echo "<br>".$_SESSION['uname']."==".$data[$a][$k-1]." && (".$data[$a][$k]."==pending'|| ".$data[$a][$k+2];
-          //  if(!empty($access['Edit']))
-            //{
-               if($_SESSION['uname']==$data[$a][$k-1] && ($data[$a][$k]=='pending'|| $data[$a][$k+2]!=1)||$status[$a]=='Rejected')
-               echo "<td><input type='image' src='assets/Edit.png' name='image' width='20' height='20' onclick=\"get_data('".$type."','Edit','".$trans_num."')\"></td>";
-            //}  
-            //echo "<td><input type='image' src==$data[$a][$k-1]'assets/cross.jpg' name='image' width='20' height='20' onclick=\"get_data('".$type."','Reject','".$data[$a][$k]."')\"></td>";
-           // if(!empty($access['Reject']))
-            //{
+			echo "<td style='border:none;'></td>";
+		echo "<td style='border:none;'><input type='image' src='assets/view_details.png' name='image' width='20' height='20' onclick=\"get_data('".$type."','View','".$trans_num."')\"></td>";
+        if($_SESSION['uname']==$data[$a][$k-1] && ($data[$a][$k]=='pending'|| $data[$a][$k+2]!=1)||$status[$a]=='Rejected')
+               echo "<td style='border:none;border-right:1px solid black;'><input type='image' src='assets/Edit.png' name='image' width='20' height='20' onclick=\"get_data('".$type."','Edit','".$trans_num."')\"></td>";
              $reject=true;
             if( $status[$a]!='Rejected' && $status[$a]==4 && !empty($access_menu[$menu_id[$status[$a]]]))
              $reject=false;
             else if( $status[$a]!='Rejected' && $status[$a]==8 && !empty($access_menu[$menu_id[$status[$a]]]))
              $reject=false;
                if($status[$a]!='Rejected' && ( $reject ||$_SESSION['uname']==$data[$a][$k-1]))
-               echo "<td><img  src='assets/cross.jpg' name='image' width='20' height='20' onclick=\"reject_this('".$type."','".$data[$a][$k]."','".$trans_num."');\"></td>";
-           // }
-		 echo "</tr>";
+               echo "<td style='border:none;border-right:1px solid black;'><img  src='assets/cross.jpg' name='image' width='20' height='20' onclick=\"reject_this('".$type."','".$data[$a][$k]."','".$trans_num."');\"></td>";
+         echo "</tr>";
         }
         
     ?>
@@ -798,13 +723,13 @@ echo "<input type='hidden' id='payment_type".$trans_num."' value='".$row['paymen
             <table align=center > 
                 <?php
                     if($page!=1)
-                    echo "<td><input type='button' value='First' onclick='getPage(1)'></td>";
+                    echo "<td style='border:none;'><input type='button' style='font-size:22px' value='First' onclick='getPage(1)'></td>";
                     if($page>1)
-                    echo "<td><input type='button' value='Prev' onclick='getPage(".($page-1).")'></td>";
+                    echo "<td style='border:none;'><input type='button' style='font-size:22px' value='Prev' onclick='getPage(".($page-1).")'></td>";
                     if($page+1<=$pages)
-                    echo "<td><input type='button' value='Next' onclick='getPage(".($page+1).")'></td>";
+                    echo "<td style='border:none;'><input type='button' style='font-size:22px' value='Next' onclick='getPage(".($page+1).")'></td>";
                     if($page!=$pages)
-                    echo "<td><input type='button' value='Last' onclick='getPage(".($pages).")'></td>";
+                    echo "<td style='border:none;'><input type='button' style='font-size:22px' value='Last' onclick='getPage(".($pages).")'></td>";
                 ?>
                 <td style='width:200px;border:none;padding: 0px' colspan=16>Page
                     <select style='font-size:24px' id='page' name='page' onchange='getPage(this.value)' >
@@ -825,8 +750,11 @@ echo "<input type='hidden' id='payment_type".$trans_num."' value='".$row['paymen
     </tr>   
 </table>
 </form>
+<?php
+    include 'page_footer.php';
+    ?>
 <script>
        datepickr('#date_from_cal', { altInput: document.getElementById('date_from') });
      datepickr('#date_to_cal', { altInput: document.getElementById('date_to') });
-
 </script>
+

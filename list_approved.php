@@ -228,3 +228,6 @@ function print_me()
      datepickr('#date_to_cal', { altInput: document.getElementById('date_to') });
 
 </script>
+<?php
+    include 'page_footer.php';
+    ?>

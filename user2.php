@@ -226,5 +226,5 @@ $kai=0;
 }
 
 echo "</form>";
-
-?>
+    include 'page_footer.php';
+    ?>

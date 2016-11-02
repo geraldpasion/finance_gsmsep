@@ -593,6 +593,8 @@ echo "<tr><th style='text-align:left'>Letter Code:</th><th style='text-align:lef
     echo textMaker('Supplier','supplier',$supplier);
     echo selectMaker('Payment Type','payment_type',array('Cash','Check'),'',$payment_type);
     ?>
+    </table>
+    <table>
     <tr>
         <th style='text-align:left;padding-top:10px'><h2>Items</h3></th>
     </tr>
@@ -659,4 +661,7 @@ echo "<tr><th style='text-align:left'>Letter Code:</th><th style='text-align:lef
     </tr>
     </table>
     </form>
+    <?php 
+    include 'page_footer.php';
+    ?>
      									

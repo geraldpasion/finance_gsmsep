@@ -685,3 +685,7 @@ Message:".$_REQUEST['chat_box'];
 }
 ?>
 </form>
+
+<?php
+    include 'page_footer.php';
+    ?>
