@@ -94,7 +94,7 @@ $file_name=sprintf('%s.%s',
    // $file_name=$_FILES['fileToUpload']['tmp_name'];
 	 $update="update po_file set received_date=now(), status='Received' , file_name='".addslashes($file_name)."' where trans_no='$trans_num'";
         $conn->query($update);
-        echo $update;
+       // echo $update;
     echo "<script>alert('File is uploaded successfully.')</script>";
 
 } catch (RuntimeException $e) {
@@ -103,14 +103,10 @@ $file_name=sprintf('%s.%s',
 
 }
 }
+$page_type=$_REQUEST['page_type'];
+echo "<form id='form1' name='form1' method=get>";
 
-
-
-
-
-
-echo "<form id='form1' name='form1' method=post>";
-echo "<input type='hidden' id='type' name='type' value='$type'>";
+echo "<input type='hidden' id='type' name='type' value='$page_type'>";
 echo "</form>";
 
 ?>
@@ -143,14 +139,15 @@ $text=urlencode($text);
 try {
 //$response = file_get_contents("http://127.0.0.1:13013/cgi-bin/sendsms?user=sms-app&pass=app125&text=$text&to=".$phone_number);
 sendText($text,$phone_number,$smsc_id,$trans_num);
+echo "<script>back();</script>";
 }
 catch(Exception $e)
 {
-		echo "<script>alert('Failed to send message')</script>";
+		echo "<script>alert('Failed to send message');back();</script>";
 }
 catch (ErrorException $e) {
     // ...
 }
                
 ?>
-<body onload='back()'></body>
+<body ></body>

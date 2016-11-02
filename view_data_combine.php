@@ -205,12 +205,11 @@ page_type="withpo"
             alert("Please Enter complete Details")
         else
         {
-        alert("kai")
             name=document.getElementById('name').value
             cv=document.getElementById('cv').value
             title=document.getElementById('title').value
             url="xstatus=readyForPickUp&status=6&trans_num="+trans_num+"&name="+name+"&cv="+cv+"&title="+title
-            alert(url)
+            //alert(url)
             loadXMLDoc('get_type.php?'+url,releadPage)
         }
         
@@ -350,6 +349,7 @@ echo $html;
 ?>
 <input type='hidden' name='trans_num' id='trans_num2'>
 <input type='hidden' name='type' id='type2' >
+<input type='text' style='display:none' name='page_type' id='page_type'  value='<?php echo $_REQUEST['type'];?>'>
    </div>
 </form>
 <form name='form1' id='form1' method=post  enctype="multipart/form-data">
@@ -386,6 +386,8 @@ if($type=='Without Po')
     $active_po="class='tabby'";
 }
 ?>
+
+
 <div id='getCheckDetails' style='display:none;z-index:11;border:1px solid black;background-color:white;padding:10px'>
     <table>
         <?php
@@ -674,7 +676,7 @@ echo "<input type='hidden' id='payment_type".$trans_num."' value='".$row['paymen
 		if($status[$a]>='Rejected')
 			$status_name[$status[$a]]=$status[$a];
 		else if($status[$a]>=4 &&!empty($access_menu[$menu_id[4]])&&$ae_status[$a]!=1)
-			echo "<div class='div_button' onclick='button_press(this.value,".$data[$a][$k+1].",4)'>".$button_name[4]."'</div>";
+			echo "<div class='div_button' onclick='button_press(this.value,".$data[$a][$k+1].",4)'>".$button_name[4]."</div>";
 		else if($ae_status[$a]==1 &&$status[$a]==4)
 			$temp_status=$status[$a]+1;
 		else if($ae_status[$a]==1 )
