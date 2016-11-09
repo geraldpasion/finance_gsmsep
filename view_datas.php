@@ -458,7 +458,7 @@ Message:".$_REQUEST['chat_box'];
         while($row2=$result818->fetch_assoc())
         {
             echo "<tr>";
-                echo "<th style='width:100px;padding:10px;border:1px solid black;text-align:left'>".$row2['item']."</th>";
+                echo "<th style='width:100px;padding:10px;text-align:left'>".$row2['item']."</th>";
                 echo "<th style='width:205px;padding:10px;text-align:left'>".$row2['description']."</th>";
                 echo "<td style='width:90px;padding:10px;text-align:right'>".$row2['quantity']."</td>";
                  echo "<td style='width:90px;padding:10px;text-align:right'>".number_format($row2['unit_price'],2)."</td>";
@@ -472,7 +472,7 @@ Message:".$_REQUEST['chat_box'];
         echo "</tbody>";
         echo "<tfoot style='display:block'>";
         echo "<tr>";
-                echo "<th style='width:326px;padding:10px;border:1px solid black;text-align:left'></th>";
+                echo "<th style='width:326px;padding:10px;text-align:left'></th>";
                 echo "<td style='width:90px;padding:10px;text-align:right'>".$quantity."</td>";
                  echo "<td style='width:90px;padding:10px;text-align:right'>".number_format($amount,2)."</td>";
                  echo "<td style='width:90px;padding:10px;text-align:right'>".number_format(($total_amount),2)."</td>";
