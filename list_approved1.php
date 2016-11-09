@@ -59,7 +59,7 @@ function print_me()
     $filter=whereMaker($filter,'secretary',$secretary_id);
     
      $SELECT_po="select * from po_file".$filter;
-    //echo $SELECT_po;
+    
     echo "<tr>
     		<th style='border:none;text-align:left'>Date Approved</th>
         	<th colspan=10 style='text-align:left; border:none'>
@@ -228,3 +228,6 @@ function print_me()
      datepickr('#date_to_cal', { altInput: document.getElementById('date_to') });
 
 </script>
+<?php
+    include 'page_footer.php';
+    ?>
